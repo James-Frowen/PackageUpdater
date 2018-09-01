@@ -56,11 +56,11 @@
     <Compile Include="CreateNamedFolderForm.Designer.cs">
       <DependentUpon>CreateNamedFolderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditProject.cs">
+    <Compile Include="EditProjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditProject.Designer.cs">
-      <DependentUpon>EditProject.cs</DependentUpon>
+    <Compile Include="EditProjectForm.Designer.cs">
+      <DependentUpon>EditProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IncludePackagesExtension.cs" />
     <Compile Include="MainForm.cs">
@@ -77,8 +77,8 @@
     <EmbeddedResource Include="CreateNamedFolderForm.resx">
       <DependentUpon>CreateNamedFolderForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditProject.resx">
-      <DependentUpon>EditProject.cs</DependentUpon>
+    <EmbeddedResource Include="EditProjectForm.resx">
+      <DependentUpon>EditProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

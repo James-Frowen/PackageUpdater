@@ -11,12 +11,14 @@ using System.Windows.Forms;
 
 namespace JamesFrowen.PackageUpdater.GUI
 {
-    public partial class EditProject : Form
+    public partial class EditProjectForm : Form
     {
+        private Button button1;
+
         public Project Project { get; }
         public PackageList Packages { get; }
 
-        public EditProject(Project project, PackageList packages)
+        public EditProjectForm(Project project, PackageList packages)
         {
             InitializeComponent();
 

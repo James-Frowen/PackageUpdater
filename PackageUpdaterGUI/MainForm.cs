@@ -110,7 +110,7 @@ namespace JamesFrowen.PackageUpdater.GUI
             {
                 var selectedItem = this.projectsListView.SelectedItems[0];
                 var project = this.data.projects[selectedItem.Text];
-                var editForm = new EditProject(project, this.data.packages);
+                var editForm = new EditProjectForm(project, this.data.packages);
                 editForm.Show();
             }
         }

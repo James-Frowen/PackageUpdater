@@ -1,6 +1,6 @@
 ﻿namespace JamesFrowen.PackageUpdater.GUI
 {
-    partial class EditProject
+    partial class EditProjectForm
     {
         /// <summary>
         /// Required designer variable.
