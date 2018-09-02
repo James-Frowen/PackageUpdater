@@ -15,23 +15,24 @@ namespace JamesFrowen.PackageUpdater.GUI
     {
         private Button button1;
 
-        public Project Project { get; }
-        public PackageList Packages { get; }
+        public NamedFolder NamedFolder { get; }
+        public PackageList packages { get; }
 
-        public EditProjectForm(Project project, PackageList packages)
+        public EditProjectForm(NamedFolder namedFolder, PackageList packages)
         {
             InitializeComponent();
 
-            this.Project = project;
-            this.Packages = packages;
+            this.NamedFolder = namedFolder;
+            this.packages = packages;
 
-            this.NameTextBox.Text = project.Name;
-            this.PathTextBox.Text = project.Path;
+            this.NameTextBox.Text = this.NamedFolder.Name;
+            this.PathTextBox.Text = this.NamedFolder.Path;
 
             this.packageCheckedList.Items.Clear();
             foreach (var package in packages.Keys)
             {
-                this.packageCheckedList.Items.Add(package, project.includePackages.Contains(package));
+                bool isChecked = this.NamedFolder.Dependencies.Contains(package);
+                this.packageCheckedList.Items.Add(package, isChecked);
             }
         }
 
@@ -55,12 +56,12 @@ namespace JamesFrowen.PackageUpdater.GUI
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            this.Project.Name = this.NameTextBox.Text;
+            this.NamedFolder.Name = this.NameTextBox.Text;
         }
 
         private void PathTextBox_TextChanged(object sender, EventArgs e)
         {
-            this.Project.Path = this.PathTextBox.Text;
+            this.NamedFolder.Path = this.PathTextBox.Text;
         }
 
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -68,11 +69,11 @@ namespace JamesFrowen.PackageUpdater.GUI
             var key = (string)this.packageCheckedList.Items[e.Index];
             if (e.NewValue == CheckState.Checked)
             {
-                this.Project.includePackages.Add(key);
+                this.NamedFolder.Dependencies.Add(key);
             }
             else if (e.NewValue == CheckState.Unchecked)
             {
-                this.Project.includePackages.Remove(key);
+                this.NamedFolder.Dependencies.Remove(key);
             }
         }
     }

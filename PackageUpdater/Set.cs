@@ -2,16 +2,16 @@
 
 namespace JamesFrowen.PackageUpdater
 {
-    public class IncludePackages : List<string>
+    public class Set<T>: List<T>
     {
-        public new void Add(string name)
+        public new void Add(T name)
         {
             if (!this.Contains(name))
             {
                 base.Add(name);
             }
         }
-        public new void Remove(string name)
+        public new void Remove(T name)
         {
             if (this.Contains(name))
             {

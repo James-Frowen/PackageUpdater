@@ -5,7 +5,18 @@ using System.Text;
 
 namespace JamesFrowen.PackageUpdater
 {
-    public abstract class NamedFolderList<T> : Dictionary<string, T> where T : NamedFolder, new()
+    public interface INamedFolderList
     {
+        NamedFolder this[string name] { get; }
+    }
+    public abstract class NamedFolderList<T> : Dictionary<string, T>, INamedFolderList where T : NamedFolder, new()
+    {
+        NamedFolder INamedFolderList.this[string name]
+        {
+            get
+            {
+                return base[name];
+            }
+        }
     }
 }

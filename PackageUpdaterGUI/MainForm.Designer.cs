@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "pack1"),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "e:/testfolder/pack1"),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Included", System.Drawing.SystemColors.MenuHighlight, System.Drawing.SystemColors.GrayText, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))}, -1);
@@ -48,6 +48,7 @@
             this.UpdateButton = new System.Windows.Forms.Button();
             this.editProjectButton = new System.Windows.Forms.Button();
             this.openXmlButton = new System.Windows.Forms.Button();
+            this.editPackageButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addProjectButton
@@ -120,7 +121,7 @@
             this.project_path.Text = "Path";
             this.project_path.Width = 498;
             // 
-            // packages_listView
+            // packagesListView
             // 
             this.packagesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.package_name,
@@ -129,9 +130,9 @@
             this.packagesListView.FullRowSelect = true;
             this.packagesListView.GridLines = true;
             this.packagesListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.packagesListView.Location = new System.Drawing.Point(12, 254);
-            this.packagesListView.Name = "packages_listView";
+            this.packagesListView.Name = "packagesListView";
             this.packagesListView.Size = new System.Drawing.Size(660, 144);
             this.packagesListView.TabIndex = 7;
             this.packagesListView.UseCompatibleStateImageBehavior = false;
@@ -207,11 +208,23 @@
             this.openXmlButton.UseVisualStyleBackColor = true;
             this.openXmlButton.Click += new System.EventHandler(this.openXmlButton_Click);
             // 
+            // editPackageButton
+            // 
+            this.editPackageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.editPackageButton.Location = new System.Drawing.Point(540, 208);
+            this.editPackageButton.Name = "editPackageButton";
+            this.editPackageButton.Size = new System.Drawing.Size(132, 40);
+            this.editPackageButton.TabIndex = 13;
+            this.editPackageButton.Text = "Edit Package";
+            this.editPackageButton.UseVisualStyleBackColor = true;
+            this.editPackageButton.Click += new System.EventHandler(this.editPackageButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 610);
+            this.Controls.Add(this.editPackageButton);
             this.Controls.Add(this.openXmlButton);
             this.Controls.Add(this.editProjectButton);
             this.Controls.Add(this.UpdateButton);
@@ -247,6 +260,7 @@
         private System.Windows.Forms.ColumnHeader package_Included;
         private System.Windows.Forms.Button editProjectButton;
         private System.Windows.Forms.Button openXmlButton;
+        private System.Windows.Forms.Button editPackageButton;
     }
 }
 

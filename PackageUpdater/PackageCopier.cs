@@ -2,20 +2,34 @@
 using System.IO;
 
 namespace JamesFrowen.PackageUpdater
-{
+{ 
     public class CopyPackages
     {
         public static void Run(ProjectData data)
         {
             foreach (var project in data.projects.Values)
             {
-                foreach (var packageName in project.includePackages)
+                var toCopy = new PackageSet();
+
+                addPackagesAndDependacies(toCopy, project.Dependencies, data.packages);
+
+                foreach (var package in toCopy)
                 {
-                    var package = data.packages[packageName];
                     copy(project, package);
                 }
             }
         }
+        private static void addPackagesAndDependacies(PackageSet set, StringSet packageNames, PackageList all)
+        {
+            foreach (var packageName in packageNames)
+            {
+                var package = all[packageName];
+                set.Add(package);
+
+                addPackagesAndDependacies(set, package.Dependencies, all);
+            }
+        }
+
 
         private static void copy(Project project, Package package)
         {
@@ -25,7 +39,7 @@ namespace JamesFrowen.PackageUpdater
 
 
             var sourcePath = package.Path;
-            var sourceName = new DirectoryInfo(sourcePath).Name;
+            var sourceName = package.Name;
             var destinationPath = Path.Combine(project.Path, "Assets", "External", sourceName);
             Directory.CreateDirectory(destinationPath);
 

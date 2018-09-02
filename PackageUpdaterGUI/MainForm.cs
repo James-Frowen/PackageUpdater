@@ -38,7 +38,7 @@ namespace JamesFrowen.PackageUpdater.GUI
 
         private void projectsListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            IncludePackages includePackages;
+            StringSet includePackages;
             if (this.projectsListView.SelectedItems.Count == 0)
             {
                 includePackages = null;
@@ -50,7 +50,7 @@ namespace JamesFrowen.PackageUpdater.GUI
 
                 var selectedItem = this.projectsListView.SelectedItems[0];
                 var project = this.data.projects[selectedItem.Text];
-                includePackages = project.includePackages;
+                includePackages = project.Dependencies;
             }
 
 
@@ -106,18 +106,28 @@ namespace JamesFrowen.PackageUpdater.GUI
 
         private void editProjectButton_Click(object sender, EventArgs e)
         {
-            if (this.projectsListView.SelectedItems.Count != 0)
+            this.editNamedFolder(this.projectsListView, this.data.projects);
+        }
+        private void editPackageButton_Click(object sender, EventArgs e)
+        {
+            this.editNamedFolder(this.packagesListView, this.data.packages);
+        }
+        private void editNamedFolder(ListView view, INamedFolderList list)
+        {
+            if (view.SelectedItems.Count != 0)
             {
-                var selectedItem = this.projectsListView.SelectedItems[0];
-                var project = this.data.projects[selectedItem.Text];
-                var editForm = new EditProjectForm(project, this.data.packages);
+                var selectedItem = view.SelectedItems[0];
+                var namedFolder = list[selectedItem.Text];
+                var editForm = new EditProjectForm(namedFolder, this.data.packages);
                 editForm.Show();
             }
         }
+
 
         private void openXmlButton_Click(object sender, EventArgs e)
         {
             Process.Start(Path.GetFullPath(ProjectData.GetSavePath()));
         }
+
     }
 }
