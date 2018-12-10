@@ -1,32 +1,60 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
-
 namespace JamesFrowen.PackageUpdater
-{ 
+{
+    public class CopyError
+    {
+        public bool error;
+        public List<Error> messages;
+        public struct Error
+        {
+            public string message;
+            public string title;
+        }
+    }
     public class CopyPackages
     {
-        public static void Run(ProjectData data)
+        public static CopyError Run(ProjectData data)
         {
+            var copyError = new CopyError()
+            {
+                error = false,
+                messages = new List<CopyError.Error>()
+            };
             foreach (var project in data.projects.Values)
             {
                 var toCopy = new PackageSet();
 
-                addPackagesAndDependacies(toCopy, project.Dependencies, data.packages);
+                addPackagesAndDependacies(copyError, toCopy, project.Dependencies, data.packages);
 
                 foreach (var package in toCopy)
                 {
                     copy(project, package);
                 }
             }
+
+            return copyError;
         }
-        private static void addPackagesAndDependacies(PackageSet set, StringSet packageNames, PackageList all)
+        private static void addPackagesAndDependacies(CopyError copyError, PackageSet set, StringSet packageNames, PackageList all)
         {
             foreach (var packageName in packageNames)
             {
-                var package = all[packageName];
-                set.Add(package);
+                Package package;
+                if (all.TryGetValue(packageName, out package))
+                {
+                    set.Add(package);
 
-                addPackagesAndDependacies(set, package.Dependencies, all);
+                    addPackagesAndDependacies(copyError, set, package.Dependencies, all);
+                }
+                else
+                {
+                    copyError.error = true;
+                    copyError.messages.Add(new CopyError.Error
+                    {
+                        title = "Package not found!",
+                        message = string.Format("Could not find package with name '{0}'", packageName),
+                    });
+                }
             }
         }
 

@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JamesFrowen.PackageUpdater.CLI
 {
-    class Program
+    internal class Program
     {
-        private const string UPDATE= "update";
-        private const string OPEN_XML= "open-xml";
+        private const string UPDATE = "update";
+        private const string OPEN_XML = "open-xml";
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (args[0].ToLower() == UPDATE)
             {
@@ -38,7 +34,19 @@ namespace JamesFrowen.PackageUpdater.CLI
         private static void updateAll()
         {
             Console.WriteLine("Updating All projects");
-            CopyPackages.Run(ProjectData.Load());
+            var copyError = CopyPackages.Run(ProjectData.Load());
+
+            if (copyError.error)
+            {
+
+                foreach (var error in copyError.messages)
+                {
+                    Console.Error.WriteLine(error.title);
+                    Console.Error.WriteLine(error.message);
+                    Console.Error.WriteLine("");
+                }
+            }
+            Console.WriteLine("Finished");
         }
     }
 }

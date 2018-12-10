@@ -1,18 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace JamesFrowen.PackageUpdater.GUI
 {
     public partial class MainForm : Form
     {
-        static readonly Color includedColor = Color.Green;
-        static readonly Color excludedColor = Color.Red;
+        private static readonly Color includedColor = Color.Green;
+        private static readonly Color excludedColor = Color.Red;
 
         public ProjectData data;
         public ProjectListGUI projectGUI;
@@ -20,9 +17,9 @@ namespace JamesFrowen.PackageUpdater.GUI
 
         public MainForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.editProjectButton.Enabled = false;
-            load();
+            this.load();
         }
 
         private void load()
@@ -95,13 +92,28 @@ namespace JamesFrowen.PackageUpdater.GUI
             var result = MessageBox.Show(text, Caption, MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                load();
+                this.load();
             }
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            CopyPackages.Run(this.data);
+            this.UpdateButton.Enabled = false;
+
+            var copyError = CopyPackages.Run(this.data);
+
+            if (copyError.error)
+            {
+                foreach (var error in copyError.messages)
+                {
+                    MessageBox.Show(error.message, error.title,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            MessageBox.Show("Finished Coping", "Finished",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.UpdateButton.Enabled = true;
         }
 
         private void editProjectButton_Click(object sender, EventArgs e)
