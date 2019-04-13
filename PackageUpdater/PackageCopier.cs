@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 namespace JamesFrowen.PackageUpdater
 {
@@ -10,6 +11,22 @@ namespace JamesFrowen.PackageUpdater
         {
             public string message;
             public string title;
+        }
+
+        public void AddError(Error msg)
+        {
+            this.error = true;
+            this.messages.Add(msg);
+        }
+
+        public void AddError(Exception e)
+        {
+            this.error = true;
+            this.messages.Add(new Error
+            {
+                message = e.Message,
+                title = e.GetType().ToString()
+            });
         }
     }
     public class CopyPackages
@@ -29,7 +46,14 @@ namespace JamesFrowen.PackageUpdater
 
                 foreach (var package in toCopy)
                 {
-                    copy(project, package);
+                    try
+                    {
+                        copy(project, package);
+                    }
+                    catch (Exception e)
+                    {
+                        copyError.AddError(e);
+                    }
                 }
             }
 
@@ -48,8 +72,7 @@ namespace JamesFrowen.PackageUpdater
                 }
                 else
                 {
-                    copyError.error = true;
-                    copyError.messages.Add(new CopyError.Error
+                    copyError.AddError(new CopyError.Error
                     {
                         title = "Package not found!",
                         message = string.Format("Could not find package with name '{0}'", packageName),
