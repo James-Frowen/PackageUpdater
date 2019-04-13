@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "pack1"),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "e:/testfolder/pack1"),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Included", System.Drawing.SystemColors.MenuHighlight, System.Drawing.SystemColors.GrayText, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))}, -1);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.addProjectButton = new System.Windows.Forms.Button();
             this.addPackageButton = new System.Windows.Forms.Button();
             this.removeProjectbutton = new System.Windows.Forms.Button();
@@ -130,7 +131,7 @@
             this.packagesListView.FullRowSelect = true;
             this.packagesListView.GridLines = true;
             this.packagesListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.packagesListView.Location = new System.Drawing.Point(12, 254);
             this.packagesListView.Name = "packagesListView";
             this.packagesListView.Size = new System.Drawing.Size(660, 144);
@@ -236,6 +237,7 @@
             this.Controls.Add(this.removePackageButton);
             this.Controls.Add(this.removeProjectbutton);
             this.Controls.Add(this.addProjectButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
