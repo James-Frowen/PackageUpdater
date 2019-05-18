@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace JamesFrowen.PackageUpdater
+﻿namespace JamesFrowen.PackageUpdater
 {
-    public class StringSet: List<string>
+    public class StringSet : Set<string>
     {
-        
+
     }
 }
